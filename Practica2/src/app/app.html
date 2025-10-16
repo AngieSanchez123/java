@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario CRUD de Clientes</title>
+</head>
+<body>
+  <h2>CRUD de Clientes</h2>
+
+<form (ngSubmit)="agregarCliente()">
+  <label>Nombre:</label>
+  <input type="text" [(ngModel)]="nuevoCliente.nombre" name="nombre" required>
+
+  <label>Correo:</label>
+  <input type="email" [(ngModel)]="nuevoCliente.correo" name="correo" required>
+
+  <label>Teléfono:</label>
+  <input type="text" [(ngModel)]="nuevoCliente.telefono" name="telefono" required>
+
+  <button type="submit">Agregar Cliente</button>
+</form>
+
+<hr>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes; let i = index">
+      <td>{{ i + 1 }}</td>
+
+      <td *ngIf="editIndex !== i">{{ cliente.nombre }}</td>
+      <td *ngIf="editIndex === i"><input [(ngModel)]="cliente.nombre"></td>
+
+      <td *ngIf="editIndex !== i">{{ cliente.correo }}</td>
+      <td *ngIf="editIndex === i"><input [(ngModel)]="cliente.correo"></td>
+
+      <td *ngIf="editIndex !== i">{{ cliente.telefono }}</td>
+      <td *ngIf="editIndex === i"><input [(ngModel)]="cliente.telefono"></td>
+
+      <td>
+        <button *ngIf="editIndex !== i" (click)="editarCliente(i)">Editar</button>
+        <button *ngIf="editIndex === i" (click)="guardarEdicion()">Guardar</button>
+        <button (click)="eliminarCliente(i)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
